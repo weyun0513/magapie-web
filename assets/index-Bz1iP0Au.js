@@ -572,4 +572,4 @@ If it declares any Font Awesome CSS pseudo-elements, they will not be rendered a
           .animate-marquee {
             animation: marquee 10s linear infinite;
           }
-        `})]})}function Kx(){return b.jsx(kp,{children:b.jsxs(pp,{children:[b.jsx(ii,{path:"/",element:b.jsx(Cx,{})}),b.jsx(ii,{path:"/book",element:b.jsx(Qx,{})}),b.jsx(ii,{path:"/programs",element:b.jsx(Vx,{})}),b.jsx(ii,{path:"/activity",element:b.jsx(Zx,{})})]})})}z1.createRoot(document.getElementById("root")).render(b.jsx(w.StrictMode,{children:b.jsx(Kx,{})}));
+        `})]})}function Kx(){return b.jsx(kp,{basename:"/magapie-web",children:b.jsxs(pp,{children:[b.jsx(ii,{path:"/",element:b.jsx(Cx,{})}),b.jsx(ii,{path:"/book",element:b.jsx(Qx,{})}),b.jsx(ii,{path:"/programs",element:b.jsx(Vx,{})}),b.jsx(ii,{path:"/activity",element:b.jsx(Zx,{})})]})})}z1.createRoot(document.getElementById("root")).render(b.jsx(w.StrictMode,{children:b.jsx(Kx,{})}));
