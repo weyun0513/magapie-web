@@ -10,6 +10,7 @@ const Home = () => {
   const CONTACTMAIL = import.meta.env.VITE_CONTACT_EMAIL;
   const [status, setStatus] = useState("");
   const [formData, setFormData] = useState({
+ 
     firstName: "",
     lastName: "",
     phone: "",
@@ -58,17 +59,19 @@ const Home = () => {
     "https://res.cloudinary.com/dux3mbryw/image/upload/v1763021013/program4_lofjsd.jpg",
     "https://res.cloudinary.com/dux3mbryw/image/upload/v1763021812/program1_eupzcz.jpg",
     "https://res.cloudinary.com/dux3mbryw/image/upload/v1763022058/program1_oryzkz.jpg"
+
   ];
   return (
     <div className="min-h-screen bg-gray-50">
       <NavBar></NavBar>
       {/* Hero Banner */}
-      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{ backgroundImage: `url(${banner})`}}>
+      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{ backgroundImage: `url(${banner})` }}>
         <div className="absolute inset-0 bg-black bg-opacity-5"></div>
         <div className="relative mx-auto px-4 h-full flex items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-white">Richmond, BC Location</h1>
             <p className="text-white mt-2">
+
 
             </p>
           </div>
@@ -81,7 +84,7 @@ const Home = () => {
           {/* Left: Info */}
           <div>
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Welcome to Megpie Learing Center</h2>
-            
+
             <p className="text-gray-700 mb-4 leading-relaxed">
               <strong>Master the Fundamentals. Spark Creativity. Build Confidence.</strong> At Megpie Learning Center, we believe every child deserves a personalized path to success. That’s why each student receives one-on-one guidance from a dedicated tutor and a fully customized learning plan—tailored to their pace, interests, and goals.<p>在 Megpie，我們幫助孩子打好學習基礎，激發創意，建立自信。</p>
 
@@ -111,6 +114,7 @@ const Home = () => {
                 width="100%"
                 height="300"
                 style={{ border: 0 }}
+
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -138,6 +142,7 @@ const Home = () => {
                     Last Name <span className="text-red-500">*</span>
                   </label>
                   <input type="text" id="lastName" name="lastName" placeholder="Ma" required value={formData.lastName} onChange={handleChange} className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+
                 </div>
               </div>
               <div>
@@ -145,6 +150,7 @@ const Home = () => {
                   Phone <span className="text-red-500">*</span>
                 </label>
                 <input type="tel" id="phone" name="phone" placeholder="(778) 300-2366" required value={formData.phone} onChange={handleChange} className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+
               </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
@@ -172,6 +178,7 @@ const Home = () => {
               </div>
 
 
+
               <button type="submit" className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition flex items-center justify-center gap-2">
                 BOOK NOW
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,6 +193,7 @@ const Home = () => {
             <img key={index} src={src} alt={`photo-${index}`} className="w-full h-40 rounded shadow-md object-cover" />
           ))}
         </div>
+
       </div>
     </div>
   );

@@ -27,7 +27,19 @@ function Activity() {
   //   }, []);
   const posterList = useMemo(() => {
     if (type.includes("PastActivities")) {
-      return [{
+      return [
+        {
+        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770109167/his9jpg_sx2xh8.jpg",
+
+        title: "",
+        description: ""
+      },
+        {
+        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770109031/his8_dxhiug.jpg",
+
+        title: "",
+        description: ""
+      },{
         imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763008048/his2_nkwtbg.jpg",
 
         title: "",
@@ -74,6 +86,7 @@ function Activity() {
   }, [type]);
 
 
+
   const [isZoomed, setIsZoomed] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -102,7 +115,8 @@ function Activity() {
 
     <div className="w-full min-h-screen bg-gray-50">
       <NavBar></NavBar>
-      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{  backgroundImage: `url(${banner})` }}>
+      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{ backgroundImage: `url(${banner})` }}>
+
         <div className="absolute inset-0 bg-black bg-opacity-5"></div>
         <div className="relative  mx-auto px-4 h-full flex items-center">
           <div>
@@ -118,6 +132,7 @@ function Activity() {
             歡迎參加 名額有限
           </div>
         </div>
+
         <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-screen-xl relative">
           {/* 左右箭頭 */}
           <button
@@ -175,8 +190,6 @@ function Activity() {
         `}
       </style>
     </div>
-
-
   );
 }
 

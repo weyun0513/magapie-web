@@ -44,26 +44,9 @@ const NavBar = () => {
                 target="_blank"
                 href="https://www.facebook.com/profile.php?id=61576759251349"
                 className="text-white hover:text-blue-400"
-              > 
+              >
                 <i className="fab fa-facebook-f"></i>&ensp;facebook
               </a>
-              <a
-  target="_blank"
-  href="你的小紅書連結"
-  className="text-white hover:text-[#ff2442] flex items-center"
->
-  <svg 
-    width="16" 
-    height="16" 
-    viewBox="0 0 24 24" 
-    fill="currentColor" 
-    className="mr-2"
-  >
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.1 16.5c-1.5 1.5-4.5 1.5-6 0-1.5-1.5-1.5-4.5 0-6s4.5-1.5 6 0 1.5 4.5 0 6z"/>
-    {/* 這裡可以換成更精確的小紅書 Logo SVG */}
-  </svg>
-  小紅書
-</a>
             </div>
           </div>
 
@@ -96,21 +79,10 @@ const NavBar = () => {
                 Programs
               </Link>
             </li>
-            <li className="relative group">
-              <button className="px-3 py-2 hover:text-blue-600 transition-colors flex items-center">
-                Activity
-                <svg className="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                </svg>
-              </button >
-              <div className="absolute left-0 w-40 bg-white shadow-lg rounded-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-200 z-50">
-                <ul>
-                  <li><Link to="/activity" className="  block px-4 py-2 hover:bg-gray-100 text-sm text-gray-700">Upcoming Activity</Link></li>
-                  <li><Link to="/activity/PastActivities" className="  block px-4 py-2 hover:bg-gray-100 text-sm text-gray-700">Past Activities</Link></li>
-                </ul>
-              </div>
-            </li>
 
+            <li><Link to="/PastActivities" className="  block px-4 py-2 hover:bg-gray-100 text-sm text-gray-700">Activity</Link></li>
+          
+         
             <li>
 
               <Link to="/book" className=" ml-2 bg-blue-500 text-white px-5 py-2 rounded-full hover:bg-blue-600 transition-colors flex items-center gap-1 font-medium">
@@ -124,7 +96,7 @@ const NavBar = () => {
             <li>
               <img src={qrcode} alt="Logo" className="h-14 pl-2" onClick={() => setShowQR(true)} />
             </li>
-          </ul>
+          </ul >
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -135,7 +107,7 @@ const NavBar = () => {
                 d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
             </svg>
           </button>
-        </div>
+        </div >
 
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-gray-200">
@@ -190,17 +162,19 @@ const NavBar = () => {
             </ul>
           </div>
         )}
-        {showQR && (
-          <div
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-            onClick={() => setShowQR(false)}
-          >
-            <div className="bg-white p-4 rounded shadow-xl">
-              <img src={qrcode} alt="Large QR Code" className="h-64 w-64" />
+        {
+          showQR && (
+            <div
+              className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+              onClick={() => setShowQR(false)}
+            >
+              <div className="bg-white p-4 rounded shadow-xl">
+                <img src={qrcode} alt="Large QR Code" className="h-64 w-64" />
+              </div>
             </div>
-          </div>
-        )}
-      </nav>
+          )
+        }
+      </nav >
     </>
   );
 };

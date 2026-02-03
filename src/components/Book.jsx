@@ -37,6 +37,7 @@ const Book = () => {
     });
      const templateParams = {
       name: formData.firstName+" "+formData.lastName,
+ 
       tel: formData.phone,
       email: formData.email,
       message: formData.subject,
@@ -48,6 +49,7 @@ const Book = () => {
         console.log("Thank you! Your message has been sent.", response.status, response.text);
         // alert("已成功發送,會盡快聯繫您")
         setStatus("留言已發送！");
+ 
       })
       .catch((err) => {
         console.error("發送失敗", err);
@@ -63,6 +65,7 @@ const Book = () => {
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-white">Richmond, BC Location</h1>
             <p className="text-white mt-2">
+
             </p>
           </div>
         </div>
