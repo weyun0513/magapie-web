@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import emailjs from "@emailjs/browser";
+import banner from '../assets/logobanner.png';
 const Book = () => {
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -35,7 +36,7 @@ const Book = () => {
       grade: "",
     });
      const templateParams = {
-      name: formData.firstName,
+      name: formData.firstName+" "+formData.lastName,
       tel: formData.phone,
       email: formData.email,
       message: formData.subject,
@@ -47,8 +48,6 @@ const Book = () => {
         console.log("Thank you! Your message has been sent.", response.status, response.text);
         // alert("已成功發送,會盡快聯繫您")
         setStatus("留言已發送！");
-        setName("");
-        setMessage("");
       })
       .catch((err) => {
         console.error("發送失敗", err);
@@ -58,15 +57,12 @@ const Book = () => {
   return (
     <div className="w-full min-h-screen bg-gray-50">
       <NavBar></NavBar>
-      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{ backgroundImage: "url('https://scontent.fyvr2-1.fna.fbcdn.net/v/t39.30808-6/500058654_122098283186891975_3994102127364412641_n.png?_nc_cat=101&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=vEW5s6oIJOkQ7kNvwHQ-8y8&_nc_oc=AdkP4jfqegib2WknNfZu1SYna1fITospqpyyIqxNwKfqt55XbIGmwQrGJudaqz9ZTD8&_nc_zt=23&_nc_ht=scontent.fyvr2-1.fna&_nc_gid=cOCe5UoR8DVKOp0o8kdgeQ&oh=00_AfhqIJiVz48-1HrKl4_kv09tPi-mgmllcOzNWPVciSYLmA&oe=6914B907')" }}>
+      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{ backgroundImage: `url(${banner})` }}>
         <div className="absolute inset-0 bg-black bg-opacity-5"></div>
         <div className="relative  mx-auto px-4 h-full flex items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-white">Richmond, BC Location</h1>
             <p className="text-white mt-2">
-              <a href="/" className="hover:underline">Home</a> /
-              <a href="/locations" className="hover:underline"> Locations</a> /
-              Richmond, BC Location
             </p>
           </div>
         </div>

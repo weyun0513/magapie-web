@@ -1,44 +1,79 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import axios from "axios";
+import banner from '../assets/logobanner.png';
 import NavBar from "../components/NavBar";
 import { useLocation } from "react-router-dom";
-function  Activity() {
+function Activity() {
   const location = useLocation();
-//   alert(location.pathname)
+  // alert(location.pathname)
   const type = location.pathname;
   const [PosterLists, setPosterLists] = useState([]);
-//   useEffect(() => {
-//     const fetchActivity = async () => {
-//       try {
-//         // const res = await axios.get(`${serverAPIUrl}/api/program`,
-//           {
-//             params: { type } // 將 type 當作查詢參數傳入
-//           }
-//         );
-//         setPosterLists(res.data[0]);
+  //   useEffect(() => {
+  //     const fetchActivity = async () => {
+  //       try {
+  //         // const res = await axios.get(`${serverAPIUrl}/api/program`,
+  //           {
+  //             params: { type } // 將 type 當作查詢參數傳入
+  //           }
+  //         );
+  //         setPosterLists(res.data[0]);
 
-//       } catch (err) {
-//         console.error("聯絡資料取得失敗", err);
-//       }
-//     };
+  //       } catch (err) {
+  //         console.error("聯絡資料取得失敗", err);
+  //       }
+  //     };
 
-//     fetchActivity();
-//   }, []);
-  const posterList = [
-    {
-      imageUrl: "https://scontent.fyka2-1.fna.fbcdn.net/v/t39.30808-6/565116932_122142986048891975_6891909212035942156_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_ohc=JwnQd7dHyrAQ7kNvwFsIR6b&_nc_oc=AdkksCCp2wv3Pr-vKAc8bN4lD3KA_7xGTKLAbqZK_FVcZKdq5TrW4k1o6CxKKR1p5eE&_nc_zt=23&_nc_ht=scontent.fyka2-1.fna&_nc_gid=jHGTLMs6RmNSBZY7f7YvIA&oh=00_AfhNmBtqPcSpZZo9X52lKyAr2oq9L0bIOFQ4htvRwGv13Q&oe=69153F02",
-      
+  //     fetchActivity();
+  //   }, []);
+  const posterList = useMemo(() => {
+    if (type.includes("PastActivities")) {
+      return [{
+        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763008048/his2_nkwtbg.jpg",
+
+        title: "",
+        description: ""
+      },
+      {
+        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763008063/his1_c2w7pl.jpg",
+        title: "",
+        description: ""
+      },
+      {
+        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763009612/his3_uumu4m.jpg",
+        title: "",
+        description: ""
+      }, {
+        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763009657/his5_u3kc6v.jpg",
+        title: "",
+        description: ""
+      }, {
+        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763008035/3_zzlneb.png",
+        title: "",
+        description: ""
+      }, {
+        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763020820/his7_bt8wns.jpg",
+        title: "",
+        description: ""
+      }, {
+        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763020888/his6_k77ttd.jpg",
+        title: "",
+        description: ""
+      }]; // 歷史活動資料
+    }
+    return [{
+      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763007777/winter2_yqmrna.jpg",
       title: "",
       description: ""
     },
     {
-      imageUrl: "https://scontent.fyka2-1.fna.fbcdn.net/v/t39.30808-6/565911195_122142986054891975_8453984445158974051_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=kb9LktULgVwQ7kNvwEvo302&_nc_oc=Adme6KNccUljhQs_UtrL2LQ6C0xZmBiSOw14uSANuZfjFqutuGSd2Ps8AwYKoufoop4&_nc_zt=23&_nc_ht=scontent.fyka2-1.fna&_nc_gid=Q2VqmWzpggX92TSp85TBrQ&oh=00_Afgh1bLf7FFEfIsMhvQ_mhlFeaPRAJyceR2y7X-xAHxjjg&oe=691539A3",
+      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763007777/winter1_r71s0n.jpg",
 
       title: "",
       description: ""
-    },
+    }]; // 預設活動資料
+  }, [type]);
 
-  ];
+
   const [isZoomed, setIsZoomed] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -64,31 +99,25 @@ function  Activity() {
   const currentPoster = posterList[currentIndex];
 
   return (
-    
-  
-      
-     <div className="w-full min-h-screen bg-gray-50">
+
+    <div className="w-full min-h-screen bg-gray-50">
       <NavBar></NavBar>
-      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{ backgroundImage: "url('https://scontent.fyvr2-1.fna.fbcdn.net/v/t39.30808-6/500058654_122098283186891975_3994102127364412641_n.png?_nc_cat=101&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=vEW5s6oIJOkQ7kNvwHQ-8y8&_nc_oc=AdkP4jfqegib2WknNfZu1SYna1fITospqpyyIqxNwKfqt55XbIGmwQrGJudaqz9ZTD8&_nc_zt=23&_nc_ht=scontent.fyvr2-1.fna&_nc_gid=cOCe5UoR8DVKOp0o8kdgeQ&oh=00_AfhqIJiVz48-1HrKl4_kv09tPi-mgmllcOzNWPVciSYLmA&oe=6914B907')" }}>
+      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{  backgroundImage: `url(${banner})` }}>
         <div className="absolute inset-0 bg-black bg-opacity-5"></div>
         <div className="relative  mx-auto px-4 h-full flex items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-white">Richmond, BC Location</h1>
-            <p className="text-white mt-2">
-              <a href="/" className="hover:underline">Home</a> /
-              <a href="/locations" className="hover:underline"> Locations</a> /
-              Richmond, BC Location
-            </p>
+
           </div>
         </div>
       </div>
       {/* 圖片與文字區塊 */}
       <div className="flex flex-col items-center px-5">
         <div className="bg-white py-2 overflow-hidden whitespace-nowrap">
-        <div className="inline-block  pl-full animate-marquee text-[#9C1C48] font-bold text-xl">
-          歡迎參加 名額有限
+          <div className="inline-block  pl-full animate-marquee text-[#9C1C48] font-bold text-xl">
+            歡迎參加 名額有限
+          </div>
         </div>
-      </div>
         <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-screen-xl relative">
           {/* 左右箭頭 */}
           <button
@@ -119,7 +148,7 @@ function  Activity() {
           </p>
         </div>
       </div>
-      
+
       {/* 放大圖片的 Modal */}
       {isZoomed && (
         <div

@@ -1,0 +1,184 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import NavBar from "../components/NavBar";
+import { useLocation } from "react-router-dom";
+function  Activity() {
+  const location = useLocation();
+//   alert(location.pathname)
+  const type = location.pathname;
+  const [PosterLists, setPosterLists] = useState([]);
+  //   useEffect(() => {
+  //     const fetchActivity = async () => {
+  //       try {
+  //         // const res = await axios.get(`${serverAPIUrl}/api/program`,
+  //           {
+  //             params: { type } // 將 type 當作查詢參數傳入
+  //           }
+  //         );
+  //         setPosterLists(res.data[0]);
+
+  //       } catch (err) {
+  //         console.error("聯絡資料取得失敗", err);
+  //       }
+  //     };
+
+  //     fetchActivity();
+  //   }, []);
+  const posterList = useMemo(() => {
+    if (type.includes("HistoryActivity")) {
+      return [{
+        imageUrl: "https://scontent.fcxh3-1.fna.fbcdn.net/v/t39.30808-6/520244934_122124103544891975_4589470235412592400_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=lwRHISOPv_4Q7kNvwEsGf4-&_nc_oc=AdmHakq_7l6GkBocdXfVzMR2W8NRIr688XKQXtOZDKSndPBfT3UiE339mg49GjdfYn-CgjUIsYrCrGl8dXrLsJHY&_nc_zt=23&_nc_ht=scontent.fcxh3-1.fna&_nc_gid=Rtkrf9nn6H0cAlBbrS1TCg&oh=00_AfiK95aXtmaRxyH_nfF_WSbhl6kW-bO0DP0_pcsMQjD_rw&oe=69183AA2",
+
+        title: "",
+        description: ""
+      },
+      {
+        imageUrl: "https://scontent.fcxh3-1.fna.fbcdn.net/v/t39.30808-6/560560059_122142988028891975_1723783519246925819_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_ohc=OYHLVbE2kcoQ7kNvwF7v4ft&_nc_oc=AdnwaTkXhBubW85pgJzknV4-7Bl2n0WjfngFQgGulSynHOP_2VzrNl7pWcLUVFVLk5ZcCxWZ-PI71NxYtmGYXzQ2&_nc_zt=23&_nc_ht=scontent.fcxh3-1.fna&_nc_gid=MhR9c_uZ7BOUBjoPCfkFug&oh=00_AfiBKYDJMGegGs8oZ69HnZOqUa1VOl7AUHRIBBHirFRNRw&oe=69180F9A",
+        title: "",
+        description: ""
+      },
+      {
+        imageUrl: "https://scontent.fcxh3-1.fna.fbcdn.net/v/t39.30808-6/560286198_122143238276891975_3049715084404544513_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=UMj7AskAmikQ7kNvwGbkw1l&_nc_oc=AdlWpLQ8ODb6XNv_iyp5W1_OShQp_v9x7CUkLENm1Hg98_zvCv7sz-lNDLTnuvza09DL0cSqUq8P2q-8m2RfIrYF&_nc_zt=23&_nc_ht=scontent.fcxh3-1.fna&_nc_gid=RikIzy5iBFH8Mr-hnAET4w&oh=00_Afh2LX7hU3HBrRQu8xMekA1Fn88jSTCKLkz12yZ6MIzvtQ&oe=69182209",
+        title: "",
+        description: ""
+      }, {
+        imageUrl: "https://scontent.fcxh3-1.fna.fbcdn.net/v/t39.30808-6/519698111_122122758188891975_228616077858524705_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=VvbgrIAG9ZIQ7kNvwHNpMTl&_nc_oc=Adll5JYlZXeMiPFla3AT9xoduVUhdrctpmEqo2IvqmfKQVRWEdPsJG7IZhTlI-o3gM3ModuYd4hcpNLuhnhKW-sS&_nc_zt=23&_nc_ht=scontent.fcxh3-1.fna&_nc_gid=BMZv8-yDxiwublA052Ud9A&oh=00_AfhOpO5bkq6HcldYEZvDtxxtyAp4uGCFFFObFKYWYIah3A&oe=69182982",
+        title: "",
+        description: ""
+      }, {
+        imageUrl: "https://scontent.fcxh3-1.fna.fbcdn.net/v/t39.30808-6/511585361_122116153568891975_194422181021579744_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=wMxh3LL4GBcQ7kNvwHe7gKd&_nc_oc=Admcoq80zgI3TJYSwa5zL217XfM-yiDtd0IShmrFW6wMcuQ2IzjQB6wJcaRCZ7sas8eBOg1gubT0sWQWbxi9lgmk&_nc_zt=23&_nc_ht=scontent.fcxh3-1.fna&_nc_gid=fW2yPQfxWxktpHEnrtY8zA&oh=00_AfiyzLjcmN6uprj-MG_Szxh6HhXk9nbAM5hpb4OJTV3ZNQ&oe=69182C81",
+        title: "",
+        description: ""
+      }, {
+        imageUrl: "https://scontent.fcxh3-1.fna.fbcdn.net/v/t39.30808-6/510334621_122116153358891975_9189738000528832828_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_ohc=bcPeZ9chm6cQ7kNvwHAGWwy&_nc_oc=AdmEr2OTjJatya0MIkIeoDuI75YPih73TIbyQvyX1HvJHcdXk6A8nXMvYaSUeaf2cQp3ryJkHxJHnsvTwEbavDSy&_nc_zt=23&_nc_ht=scontent.fcxh3-1.fna&_nc_gid=1j6YySjHa3-GsfOHFa0tzg&oh=00_Afhu5YePycWaNHug0Ihlvn-wf9RweyibksTaLW_moBu1mg&oe=69182883",
+        title: "",
+        description: ""
+      }]; // 歷史活動資料
+    }
+    return [{
+      imageUrl: "https://scontent.fyka2-1.fna.fbcdn.net/v/t39.30808-6/565116932_122142986048891975_6891909212035942156_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_ohc=JwnQd7dHyrAQ7kNvwFsIR6b&_nc_oc=AdkksCCp2wv3Pr-vKAc8bN4lD3KA_7xGTKLAbqZK_FVcZKdq5TrW4k1o6CxKKR1p5eE&_nc_zt=23&_nc_ht=scontent.fyka2-1.fna&_nc_gid=jHGTLMs6RmNSBZY7f7YvIA&oh=00_AfhNmBtqPcSpZZo9X52lKyAr2oq9L0bIOFQ4htvRwGv13Q&oe=69153F02",
+      
+      title: "",
+      description: ""
+    },
+    {
+      imageUrl: "https://scontent.fyka2-1.fna.fbcdn.net/v/t39.30808-6/565911195_122142986054891975_8453984445158974051_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=kb9LktULgVwQ7kNvwEvo302&_nc_oc=Adme6KNccUljhQs_UtrL2LQ6C0xZmBiSOw14uSANuZfjFqutuGSd2Ps8AwYKoufoop4&_nc_zt=23&_nc_ht=scontent.fyka2-1.fna&_nc_gid=Q2VqmWzpggX92TSp85TBrQ&oh=00_Afgh1bLf7FFEfIsMhvQ_mhlFeaPRAJyceR2y7X-xAHxjjg&oe=691539A3",
+
+      title: "",
+      description: ""
+    },
+
+  ];
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? posterList.length - 1 : prev - 1
+    );
+  };
+
+  const handleImageClick = () => {
+    setIsZoomed(true);
+  };
+
+  const handleCloseZoom = () => {
+    setIsZoomed(false);
+  };
+  const handleNext = () => {
+    setCurrentIndex((prev) =>
+      prev === posterList.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const currentPoster = posterList[currentIndex];
+
+  return (
+    
+  
+      
+     <div className="w-full min-h-screen bg-gray-50">
+      <NavBar></NavBar>
+      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{ backgroundImage: "url('https://scontent.fyvr2-1.fna.fbcdn.net/v/t39.30808-6/500058654_122098283186891975_3994102127364412641_n.png?_nc_cat=101&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=vEW5s6oIJOkQ7kNvwHQ-8y8&_nc_oc=AdkP4jfqegib2WknNfZu1SYna1fITospqpyyIqxNwKfqt55XbIGmwQrGJudaqz9ZTD8&_nc_zt=23&_nc_ht=scontent.fyvr2-1.fna&_nc_gid=cOCe5UoR8DVKOp0o8kdgeQ&oh=00_AfhqIJiVz48-1HrKl4_kv09tPi-mgmllcOzNWPVciSYLmA&oe=6914B907')" }}>
+        <div className="absolute inset-0 bg-black bg-opacity-5"></div>
+        <div className="relative  mx-auto px-4 h-full flex items-center">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-white">Richmond, BC Location</h1>
+            <p className="text-white mt-2">
+              <a href="/" className="hover:underline">Home</a> /
+              <a href="/locations" className="hover:underline"> Locations</a> /
+              Richmond, BC Location
+            </p>
+          </div>
+        </div>
+      </div>
+      {/* 圖片與文字區塊 */}
+      <div className="flex flex-col items-center px-5">
+        <div className="bg-white py-2 overflow-hidden whitespace-nowrap">
+        <div className="inline-block  pl-full animate-marquee text-[#9C1C48] font-bold text-xl">
+          歡迎參加 名額有限
+        </div>
+      </div>
+        <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-screen-xl relative">
+          {/* 左右箭頭 */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#9C1C48] text-white px-3 py-2 rounded-l hover:bg-[#7a1739]"
+          >
+            ←
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#9C1C48] text-white px-3 py-2 rounded-r hover:bg-[#7a1739]"
+          >
+            →
+          </button>
+
+          {/* 圖片與文字 */}
+          <img
+            src={currentPoster.imageUrl}
+            alt={currentPoster.title}
+            onClick={handleImageClick}
+            className="w-1/2 h-auto mx-auto rounded"
+          />
+          <h1 className="text-center text-[#9C1C48] mt-4 text-2xl font-bold">
+            {currentPoster.title}
+          </h1>
+          <p className="text-center text-gray-800 mt-2">
+            {currentPoster.description}
+          </p>
+        </div>
+      </div>
+      
+      {/* 放大圖片的 Modal */}
+      {isZoomed && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
+          onClick={handleCloseZoom}
+        >
+          <img
+            src={currentPoster.imageUrl}
+            alt="Zoomed Poster"
+            className="max-w-full max-h-full rounded-lg shadow-2xl"
+          />
+        </div>
+      )}
+      {/* Tailwind 自訂動畫樣式 */}
+      <style>
+        {`
+          @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+          }
+          .animate-marquee {
+            animation: marquee 10s linear infinite;
+          }
+        `}
+      </style>
+    </div>
+
+
+  );
+}
+
+export default Activity;
