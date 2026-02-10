@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import banner from '../assets/logobanner.png';
 import NavBar from "../components/NavBar";
@@ -24,7 +24,7 @@ export default function ProgramsPage() {
     {
       title: "After School Learning",
       content1:
-        "Looking for a safe, enriching, and inspiring space for your child after school? At Megpie Learning Center, our After School Program blends academic support with creative exploration and personal growth.",
+        "Looking for a safe, enriching, and inspiring space for your child after school? At Magpie Learning Center, our After School Program blends academic support with creative exploration and personal growth.",
       age: "",
       note: "Age 5–12|Weekdays 3:00–6:00PM",
       image: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763021015/program2_zj75i6.jpg",
@@ -70,51 +70,43 @@ export default function ProgramsPage() {
   ];
 
   return (
-          <div className="w-full min-h-screen bg-gray-50">
+    <div className="w-full min-h-screen bg-gray-50">
       <NavBar></NavBar>
-  {/* Hero Banner */}
-      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{  backgroundImage: `url(${banner})` }}>
-        <div className="absolute inset-0 bg-black bg-opacity-5"></div>
-        <div className="relative  mx-auto px-4 h-full flex items-center">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white">Richmond, BC Location</h1>
-            
-          </div>
-        </div>
-      </div>
-    <div className="bg-white text-gray-800 px-3 py-10 max-w-6xl mx-auto space-y-12">
-     
+      {/* Hero Banner */}
+      
+      <div className="bg-white text-gray-800 px-3 py-10 max-w-6xl mx-auto space-y-12">
 
 
-      {programs.map((program, index) => (
-        <div
-          key={program.title}
-          className={`flex flex-col md:flex-row ${index % 2 === 1 ? "md:flex-row-reverse" : ""
-            } items-center gap-6`}
-        >
-          <img
-            src={program.image}
-            alt={program.title}
-            className="w-full md:w-1/2 h-64 object-cover rounded shadow"
-          />
-          <div className="md:w-1/2">
-            <h2 className="text-2xl font-bold text-black mb-2">
-              {program.title}
-            </h2>
-            <p className="mb-3">{program.content1}</p>
-            <p className="text-sm text-gray-600 mb-4">
-              <strong>{program.note}</strong>  
-            </p>
-            {/* <Link
+
+        {programs.map((program, index) => (
+          <div
+            key={program.title}
+            className={`flex flex-col md:flex-row ${index % 2 === 1 ? "md:flex-row-reverse" : ""
+              } items-center gap-6`}
+          >
+            <img
+              src={program.image}
+              alt={program.title}
+              className="w-full md:w-1/2 h-64 object-cover rounded shadow"
+            />
+            <div className="md:w-1/2">
+              <h2 className="text-2xl font-bold text-black mb-2">
+                {program.title}
+              </h2>
+              <p className="mb-3">{program.content1}</p>
+              <p className="text-sm text-gray-600 mb-4">
+                <strong>{program.note}</strong>
+              </p>
+              {/* <Link
               to={program.link}
               className="inline-block bg-pink-700 text-white px-4 py-2 rounded hover:bg-pink-600 transition"
             >
               Learn More
             </Link> */}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </div>
 
   );

@@ -29,56 +29,66 @@ function Activity() {
     if (type.includes("PastActivities")) {
       return [
         {
-        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770109167/his9jpg_sx2xh8.jpg",
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770109167/his9jpg_sx2xh8.jpg",
 
-        title: "",
-        description: ""
-      },
+          title: "",
+          description: ""
+        },
         {
-        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770109031/his8_dxhiug.jpg",
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770109031/his8_dxhiug.jpg",
 
-        title: "",
-        description: ""
-      },{
-        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763008048/his2_nkwtbg.jpg",
+          title: "",
+          description: ""
+        }, {
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763008048/his2_nkwtbg.jpg",
 
-        title: "",
-        description: ""
-      },
-      {
-        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763008063/his1_c2w7pl.jpg",
-        title: "",
-        description: ""
-      },
-      {
-        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763009612/his3_uumu4m.jpg",
-        title: "",
-        description: ""
-      }, {
-        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763009657/his5_u3kc6v.jpg",
-        title: "",
-        description: ""
-      }, {
-        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763008035/3_zzlneb.png",
-        title: "",
-        description: ""
-      }, {
-        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763020820/his7_bt8wns.jpg",
-        title: "",
-        description: ""
-      }, {
-        imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763020888/his6_k77ttd.jpg",
-        title: "",
-        description: ""
-      }]; // 歷史活動資料
+          title: "",
+          description: ""
+        },
+        {
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763008063/his1_c2w7pl.jpg",
+          title: "",
+          description: ""
+        },
+        {
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763009612/his3_uumu4m.jpg",
+          title: "",
+          description: ""
+        }, {
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763009657/his5_u3kc6v.jpg",
+          title: "",
+          description: ""
+        }, {
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763008035/3_zzlneb.png",
+          title: "",
+          description: ""
+        }, {
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763020820/his7_bt8wns.jpg",
+          title: "",
+          description: ""
+        }, {
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763020888/his6_k77ttd.jpg",
+          title: "",
+          description: ""
+        }]; // 歷史活動資料
     }
     return [{
-      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763007777/winter2_yqmrna.jpg",
+      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/poster2_in1hy8.jpg",
       title: "",
       description: ""
     },
     {
-      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763007777/winter1_r71s0n.jpg",
+      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714103/0213_new_bsupve.jpg",
+
+      title: "",
+      description: ""
+    }, {
+      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/0212_prdday_eyomn6.jpg",
+
+      title: "",
+      description: ""
+    }, {
+      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714697/0212_prdday_2_hiqoi1.jpg",
 
       title: "",
       description: ""
@@ -115,23 +125,14 @@ function Activity() {
 
     <div className="w-full min-h-screen bg-gray-50">
       <NavBar></NavBar>
-      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{ backgroundImage: `url(${banner})` }}>
 
-        <div className="absolute inset-0 bg-black bg-opacity-5"></div>
-        <div className="relative  mx-auto px-4 h-full flex items-center">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white">Richmond, BC Location</h1>
-
-          </div>
-        </div>
-      </div>
       {/* 圖片與文字區塊 */}
       <div className="flex flex-col items-center px-5">
-        <div className="bg-white py-2 overflow-hidden whitespace-nowrap">
+        {/* <div className="bg-white py-2 overflow-hidden whitespace-nowrap">
           <div className="inline-block  pl-full animate-marquee text-[#9C1C48] font-bold text-xl">
             歡迎參加 名額有限
           </div>
-        </div>
+        </div> */}
 
         <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-screen-xl relative">
           {/* 左右箭頭 */}
@@ -167,7 +168,7 @@ function Activity() {
       {/* 放大圖片的 Modal */}
       {isZoomed && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
+          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-[100]"
           onClick={handleCloseZoom}
         >
           <img

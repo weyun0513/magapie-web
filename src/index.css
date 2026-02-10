@@ -71,3 +71,25 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* 自定義走馬燈動畫 */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  /* 25s 是速度，數字越小跑越快 */
+  animation: marquee 15s linear infinite;
+}
+
+/* 滑鼠移上去時暫停，方便使用者點擊連結 */
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

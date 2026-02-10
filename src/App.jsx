@@ -14,8 +14,8 @@ function App() {
         <Route path="/" element={<Home />} />
            <Route path="/book" element={<Book />} />
             <Route path="/programs" element={<Program />} />
-            <Route path="/PastActivities" element={<Activity />} />
-            {/* <Route path="/activity/PastActivities" element={<Activity />} /> */}
+            <Route path="/activity/UpcomingActivities" element={<Activity />} />
+            <Route path="/activity/PastActivities" element={<Activity />} />
 
 
         {/* 其他頁面 */}

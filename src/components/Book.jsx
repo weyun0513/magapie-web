@@ -3,21 +3,23 @@ import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import emailjs from "@emailjs/browser";
 import banner from '../assets/logobanner.png';
+import qrcode from "../assets/qr_wechat.png";
 const Book = () => {
+  const [showQR, setShowQR] = useState(false);
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const userId = import.meta.env.VITE_EMAILJS_Public_Key;
   const CONTACTMAIL = import.meta.env.VITE_CONTACT_EMAIL;
-    const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     phone: "",
     email: "",
     subject: "",
-  
+
   });
-   
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -35,9 +37,9 @@ const Book = () => {
       subject: "",
       grade: "",
     });
-     const templateParams = {
-      name: formData.firstName+" "+formData.lastName,
- 
+    const templateParams = {
+      name: formData.firstName + " " + formData.lastName,
+
       tel: formData.phone,
       email: formData.email,
       message: formData.subject,
@@ -49,7 +51,7 @@ const Book = () => {
         console.log("Thank you! Your message has been sent.", response.status, response.text);
         // alert("已成功發送,會盡快聯繫您")
         setStatus("留言已發送！");
- 
+
       })
       .catch((err) => {
         console.error("發送失敗", err);
@@ -57,21 +59,28 @@ const Book = () => {
       });
   };
   return (
-    <div className="w-full min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       <NavBar></NavBar>
-      <div className="relative h-64 md:h-40 bg-cover bg-center" style={{ backgroundImage: `url(${banner})` }}>
+      <div className="relative h-64 md:h-65 bg-cover bg-center" style={{ backgroundImage: `url(${banner})` }}>
         <div className="absolute inset-0 bg-black bg-opacity-5"></div>
-        <div className="relative  mx-auto px-4 h-full flex items-center">
+        <div className="relative mx-auto px-4 h-full flex items-center">
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white">Richmond, BC Location</h1>
             <p className="text-white mt-2">
 
             </p>
           </div>
         </div>
       </div>
-      <div className="bg-white   p-10 md:p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Send us a Message</h2>
+      <div className="bg-white p-10 md:p-8 rounded-lg shadow-md">
+        <div className="flex items-center">
+          <h2 className="text-2xl font-bold text-gray-800">Send us a Message</h2>
+          <img
+            src={qrcode}
+            alt="Logo"
+            className="h-14 pl-4 cursor-pointer"
+            onClick={() => setShowQR(true)}
+          />
+        </div>
         <p className="text-gray-600 mb-6">
           Have a question or want to learn more about our educational services? Send us a message and our team will get back to you shortly.
         </p>
@@ -139,9 +148,22 @@ const Book = () => {
           </button>
         </form>
       </div>
+       {
+          showQR && (
+            <div
+              className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+              onClick={() => setShowQR(false)}
+            >
+              <div className="bg-white p-4 rounded shadow-xl">
+                <img src={qrcode} alt="Large QR Code" className="h-64 w-64" />
+              </div>
+            </div>
+          )
+        }
     </div>
 
   )
+
 }
 
 export default Book;
