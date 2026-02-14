@@ -61,16 +61,7 @@ const Book = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <NavBar></NavBar>
-      <div className="relative h-64 md:h-65 bg-cover bg-center" style={{ backgroundImage: `url(${banner})` }}>
-        <div className="absolute inset-0 bg-black bg-opacity-5"></div>
-        <div className="relative mx-auto px-4 h-full flex items-center">
-          <div>
-            <p className="text-white mt-2">
-
-            </p>
-          </div>
-        </div>
-      </div>
+      
       <div className="bg-white p-10 md:p-8 rounded-lg shadow-md">
         <div className="flex items-center">
           <h2 className="text-2xl font-bold text-gray-800">Send us a Message</h2>

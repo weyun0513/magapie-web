@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import emailjs from "@emailjs/browser";
 import banner from '../assets/logobanner_w.png';
-import banner2 from '../assets/banner2.jpg';
+import banner2 from '../assets/banner2.jpeg';
 
 import qrcode from "../assets/qr_wechat.png";
 
@@ -28,7 +28,7 @@ const Home = () => {
       type: "image",
       content: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/0212_prdday_eyomn6.jpg"
     },
-     {
+    {
       text: "📍 新春工作坊",
       type: "image",
       content: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714103/0213_new_bsupve.jpg"
@@ -65,7 +65,33 @@ const Home = () => {
       subject: "",
       grade: "",
     });
-    // ... 原有的 emailjs 邏輯 ...
+    const templateParams = {
+      name: formData.firstName + " " + formData.lastName,
+      tel: formData.phone,
+      email: formData.email,
+      message: `Grade: ${formData.grade}, Subject: ${formData.subject}`,
+      to_email: CONTACTMAIL,
+    };
+
+    emailjs
+      .send(serviceId, templateId, templateParams, userId)
+      .then(() => {
+        alert("Thank you! Your message has been sent.");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          phone: "",
+          email: "",
+          subject: "",
+          grade: "",
+          location: "Richmond",
+        });
+      })
+      .catch((err) => {
+        console.error("發送失敗", err);
+        setStatus("發送失敗，請稍後再試");
+        alert("Submission failed. Please try again.");
+      });
   };
 
   const images = [
@@ -146,7 +172,7 @@ const Home = () => {
               {/* 增加一個裝飾用的小橫線，讓設計感提升 */}
               <div className="hidden md:block w-8 h-[2px] bg-blue-400"></div>
               <p className="text-lg md:text-xl text-gray-500 font-medium tracking-wide uppercase italic">
-               Empowering young minds through personalized mentorship and creative discovery.
+                Empowering young minds through personalized mentorship and creative discovery.
               </p>
             </div>
           </div>
@@ -155,6 +181,9 @@ const Home = () => {
               src={banner2}
               className="w-full max-w-xl shadow-2xl rounded-xl shadow-xl  "
               alt="Hero"
+               onClick={(e) => {
+                     openModal(e, "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/poster2_in1hy8.jpg");
+                    }}
             />
           </div>
         </div>
@@ -166,7 +195,7 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start"> {/* items-start 確保內容從頂部對齊 */}
           {/* 左側：介紹與聯絡資訊 */}
           <div>
-           
+
             <p className="text-gray-700 mb-4 leading-relaxed text-lg">
               <strong>Master the Fundamentals. Spark Creativity. Build Confidence.</strong> At Magpie Learning Center, we believe every child deserves a personalized path to success. That’s why each student receives one-on-one guidance from a dedicated tutor and a fully customized learning plan—tailored to their pace, interests, and goals.
             </p>

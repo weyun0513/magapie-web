@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import banner from '../assets/logobanner.png';
 import NavBar from "../components/NavBar";
 export default function ProgramsPage() {
   const serverUrl = import.meta.env.VITE_SERVER_BASE_URL;
