@@ -22,17 +22,7 @@ const Home = () => {
       text: "🎉 春假託管班 招生啦",
       type: "image",
       content: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/poster2_in1hy8.jpg"
-    },
-    {
-      text: "📍 2月12 & 2月13 PRO-D Day",
-      type: "image",
-      content: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/0212_prdday_eyomn6.jpg"
-    },
-    {
-      text: "📍 新春工作坊",
-      type: "image",
-      content: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714103/0213_new_bsupve.jpg"
-    }
+    } 
   ];
 
   const openModal = (e, imgUrl) => {

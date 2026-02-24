@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from "react";
 import axios from "axios";
-import banner from '../assets/logobanner.png';
 import NavBar from "../components/NavBar";
 import { useLocation } from "react-router-dom";
 function Activity() {

@@ -23,9 +23,9 @@ const NavBar = () => {
           <div className="flex items-center gap-4"> {/* gap-4 控制圖片與文字間的距離 */}
             <Link to="/" className="flex items-center gap-3"> {/* 也可以直接把文字放進 Link 增加點擊範圍 */}
               <img src={logo} className="w-16 h-auto object-contain" alt="Logo" />
-             <h3 className="text-2xl md:text-3xl font-extrabold text-gray-800 tracking-tight group-hover:text-blue-600 transition-colors">
-        Magpie Learning Centre
-      </h3>
+              <h3 className="text-2xl md:text-3xl font-extrabold text-gray-800 tracking-tight group-hover:text-blue-600 transition-colors">
+                Magpie Learning Centre
+              </h3>
             </Link>
           </div>
           {/* 右側：選單 */}
@@ -48,8 +48,8 @@ const NavBar = () => {
                 </ul>
               </div>
             </li>
-            {/* Contact 按鈕 */}
-            {/* <li><Link to="/programs" className="hover:text-blue-600 transition-colors">Contact Us</Link></li> */}
+             
+            <li><Link to="/photoGallery" className="hover:text-blue-600 transition-colors">PhotoGallery</Link></li>
 
             {/* Book 按鈕 */}
             <li>
@@ -60,6 +60,7 @@ const NavBar = () => {
                 </svg>
               </Link>
             </li>
+            
           </ul>
 
           {/* 手機版漢堡按鈕 */}
