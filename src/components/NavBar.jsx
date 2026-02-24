@@ -49,7 +49,7 @@ const NavBar = () => {
               </div>
             </li>
              
-            <li><Link to="/photoGallery" className="hover:text-blue-600 transition-colors">PhotoGallery</Link></li>
+            {/* <li><Link to="/photoGallery" className="hover:text-blue-600 transition-colors">PhotoGallery</Link></li> */}
 
             {/* Book 按鈕 */}
             <li>
