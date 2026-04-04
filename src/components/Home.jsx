@@ -176,7 +176,7 @@ const Home = () => {
               className="w-full max-w-xl shadow-2xl rounded-xl shadow-xl  "
               alt="Hero"
                onClick={(e) => {
-                     openModal(e, "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/poster2_in1hy8.jpg");
+                     openModal(e, `${import.meta.env.VITE_SERVER}/assets/uploads/poster_20260404.jpeg`);
                     }}
             />
           </div>
