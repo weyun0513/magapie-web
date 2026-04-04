@@ -96,7 +96,7 @@ const NavBar = () => {
 
                 {isActivityOpen && (
                   <ul className="pl-6">
-                    <li><Link to="/activity" className="block px-4 py-2 hover:bg-gray-100 text-sm" onClick={() => {
+                    <li><Link to="/activityUpcomingActivities" className="block px-4 py-2 hover:bg-gray-100 text-sm" onClick={() => {
                       setIsMobileMenuOpen(false);
                       setIsActivityOpen(false);
                     }}>Upcoming Activity</Link></li>
