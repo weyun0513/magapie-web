@@ -19,9 +19,13 @@ const Home = () => {
 
   const marqueeItems = [
     {
-      text: "🎉 春假託管班 招生啦",
+      text: "🎉 週六作業小學堂 招生啦",
       type: "image",
-      content: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/poster2_in1hy8.jpg"
+      content: `${import.meta.env.VITE_SERVER}/assets/uploads/poster_20260404.jpeg`
+    } , {
+      text: "🎉 復活節party",
+      type: "image",
+      content: `${import.meta.env.VITE_SERVER}/assets/uploads/poster_20260403.jpg`
     } 
   ];
 

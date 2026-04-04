@@ -26,7 +26,25 @@ function Activity() {
   //   }, []);
   const posterList = useMemo(() => {
     if (type.includes("PastActivities")) {
+
       return [
+        {
+          imageUrl: `${import.meta.env.VITE_SERVER}/assets/uploads/poster_20260403.jpg`,
+
+          title: "",
+          description: ""
+        }, {
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/0212_prdday_eyomn6.jpg",
+
+          title: "",
+          description: ""
+        },
+        {
+          imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714697/0212_prdday_2_hiqoi1.jpg",
+
+          title: "",
+          description: ""
+        },
         {
           imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770109167/his9jpg_sx2xh8.jpg",
 
@@ -71,23 +89,8 @@ function Activity() {
           description: ""
         }]; // 歷史活動資料
     }
-    return [{
-      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/poster2_in1hy8.jpg",
-      title: "",
-      description: ""
-    },
-    {
-      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714103/0213_new_bsupve.jpg",
-
-      title: "",
-      description: ""
-    }, {
-      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/0212_prdday_eyomn6.jpg",
-
-      title: "",
-      description: ""
-    }, {
-      imageUrl: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714697/0212_prdday_2_hiqoi1.jpg",
+    return [  {
+      imageUrl:  `${import.meta.env.VITE_SERVER}/assets/uploads/poster_20260404.jpeg`,
 
       title: "",
       description: ""
