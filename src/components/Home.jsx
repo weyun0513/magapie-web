@@ -23,9 +23,9 @@ const Home = () => {
       type: "image",
       content: `${import.meta.env.VITE_SERVER}/assets/uploads/poster_20260404.jpeg`
     } , {
-      text: "🎉 復活節party",
+      text: "Magpie 夏令營 2026 招生開跑",
       type: "image",
-      content: `${import.meta.env.VITE_SERVER}/assets/uploads/poster_20260403.jpg`
+      content: `${import.meta.env.VITE_SERVER}/assets/uploads/summer_camp.jpg`
     } 
   ];
 
@@ -172,11 +172,11 @@ const Home = () => {
           </div>
           <div className="md:w-1/2 flex justify-center md:justify-end">
             <img
-              src={banner2}
+             src={`${import.meta.env.VITE_SERVER}/assets/uploads/summer_camp.jpg`}
               className="w-full max-w-xl shadow-2xl rounded-xl shadow-xl  "
               alt="Hero"
                onClick={(e) => {
-                     openModal(e, `${import.meta.env.VITE_SERVER}/assets/uploads/poster_20260404.jpeg`);
+                     openModal(e, `${import.meta.env.VITE_SERVER}/assets/uploads/summer_camp.jpg`);
                     }}
             />
           </div>
