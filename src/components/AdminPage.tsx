@@ -13,14 +13,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { TabType, MarqueeItem, PosterItem } from '../types';
 import MarqueeManagement from './MarqueeManagement';
 import PosterManagement from './PosterManagement';
+import HomeImgManagement from './HomeImgManagement';
+
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<TabType>('overview');
 
   // Mock Data
-  const marqueeItems: MarqueeItem[] = [
-    { id: '1', image: 'https://picsum.photos/seed/canada/100/100', title: 'sasasv', order: 0 }
-  ];
 
   const posterItems: PosterItem[] = [
     { id: '1', image: 'https://picsum.photos/seed/event1/100/100', description: '夏季音樂節活動海報', status: 'upcoming' },
@@ -28,18 +27,18 @@ export default function AdminPage() {
   ];
 
   const navItems = [
-    { id: 'overview', label: '總覽', icon: LayoutDashboard },
+    { id: 'banner', label: '首頁照片管理', icon: LayoutGrid },
     { id: 'marquee', label: '跑馬燈管理', icon: ImageIcon },
-    { id: 'wall', label: '活動牆管理', icon: LayoutGrid },
     { id: 'poster', label: '活動海報管理', icon: FileImage },
-    { id: 'user', label: '用戶管理', icon: Users },
-    { id: 'settings', label: '系統設定', icon: Settings },
+  
   ];
 
   const renderContent = () => {
     switch (activeTab) {
       case 'marquee':
-        return <MarqueeManagement initialItems={marqueeItems} />;
+        return <MarqueeManagement   />;
+      case 'banner':
+        return <HomeImgManagement   />;
       case 'poster':
         return <PosterManagement items={posterItems} />;
       default:
@@ -90,7 +89,7 @@ export default function AdminPage() {
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-semibold">管理員</span>
-              <span className="text-xs text-gray-500">admin@system.com</span>
+              <span className="text-xs text-gray-500">admin@magpie.com</span>
             </div>
           </div>
         </div>

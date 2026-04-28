@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import NavBar from "../components/NavBar";
 import emailjs from "@emailjs/browser";
 import banner from '../assets/logobanner_w.png';
@@ -7,27 +7,44 @@ import banner2 from '../assets/banner2.jpeg';
 import qrcode from "../assets/qr_wechat.png";
 
 const Home = () => {
-  // ... (保持你原有的狀態、函數和 marqueeItems 不變) ...
+   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const userId = import.meta.env.VITE_EMAILJS_Public_Key;
   const CONTACTMAIL = import.meta.env.VITE_CONTACT_EMAIL;
-
+ const [isLoading, setIsLoading] = useState(true); // 建議增加載入狀態
   const [status, setStatus] = useState("");
   const [selectedImg, setSelectedImg] = useState(null);
+   const [homeData, setHomeData] = useState({ banner: [], marquee: [], bottomPics: [] });
   const [showQR, setShowQR] = useState(false); // 修正：加上原有的 QR 狀態
-
-  const marqueeItems = [
-    {
-      text: "🎉 週六作業小學堂 招生啦",
-      type: "image",
-      content: `${import.meta.env.VITE_SERVER}/assets/uploads/poster_20260404.jpeg`
-    } , {
-      text: "Magpie 夏令營 2026 招生開跑",
-      type: "image",
-      content: `${import.meta.env.VITE_SERVER}/assets/uploads/summer_camp.jpg`
-    } 
-  ];
+ useEffect(() => {
+    setIsLoading(true); // 開始抓取時確保是 true
+    fetch(`${API_URL}/api/home`)
+      .then(res => res.json())
+      .then(result => {
+        if (result.ok) {
+          setHomeData(result.data);
+         
+        }
+      })
+      .catch(err => console.error("Error:", err))
+      .finally(() => {
+        setIsLoading(false); // 無論成功或失敗，結束載入
+      });
+  }, []);
+ 
+  // const marqueeItems = [
+  //   {
+  //     text: "🎉 週六作業小學堂 招生啦",
+  //     type: "image",
+  //     content: `${import.meta.env.VITE_SERVER}/assets/uploads/poster_20260404.jpeg`
+  //   } , {
+  //     text: "Magpie 夏令營 2026 招生開跑",
+  //     type: "image",
+  //     content: `${import.meta.env.VITE_SERVER}/assets/uploads/summer_camp.jpg`
+  //   } 
+  // ];
 
   const openModal = (e, imgUrl) => {
     e.preventDefault();
@@ -104,18 +121,18 @@ const Home = () => {
         <div className="absolute whitespace-nowrap flex animate-marquee">
           {[1, 2].map((loop) => (
             <div key={loop} className="flex items-center">
-              {marqueeItems.map((item, index) => (
+              {homeData?.marquee?.map((item, index) => (
                 <React.Fragment key={index}>
                   <a
-                    href={item.type === "link" ? item.content : "#"}
+                    href={item.type === "link" ? item.image : "#"}
                     target={item.type === "link" ? "_blank" : "_self"}
                     rel="noopener noreferrer"
                     onClick={(e) => {
-                      if (item.type === "image") openModal(e, item.content);
+                        openModal(e, `${API_URL}${item.image}`);
                     }}
                     className="mx-8 hover:underline font-medium flex items-center gap-2 cursor-pointer"
                   >
-                    {item.text}
+                    {item.title}
                   </a>
                   <span className="mx-8 text-blue-200">|</span>
                 </React.Fragment>
@@ -319,7 +336,7 @@ const Home = () => {
 
         {/* 下方四張圖片區塊 */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
-          {images.map((src, index) => (
+          {homeData?.bottomPics?.map((src, index) => (
             <img key={index} src={src} alt={`program-${index}`} className="w-full h-48 object-cover rounded-xl shadow-md hover:scale-105 transition-transform cursor-pointer" onClick={() => setSelectedImg(src)} />
           ))}
         </div>

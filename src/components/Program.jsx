@@ -27,7 +27,7 @@ export default function ProgramsPage() {
       age: "",
       note: "Age 5–12|Weekdays 3:00–6:00PM",
       image: "https://res.cloudinary.com/dux3mbryw/image/upload/v1763021015/program2_zj75i6.jpg",
-      // link: "/programs/afterschool",
+       
     },
     {
       title: "Academic Tutoring",
@@ -86,7 +86,7 @@ export default function ProgramsPage() {
             <img
               src={program.image}
               alt={program.title}
-              className="w-full md:w-1/2 h-64 object-cover rounded shadow"
+              className="w-full md:w-1/2 h-90 object-cover rounded shadow"
             />
             <div className="md:w-1/2">
               <h2 className="text-2xl font-bold text-black mb-2">

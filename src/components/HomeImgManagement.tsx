@@ -1,38 +1,17 @@
 import { Plus, Edit, Trash2, X, Upload, Image as ImageIcon } from 'lucide-react';
-import type { MarqueeItem } from '../types';
+import type { ImgItem } from '../types';
 import { useState, useRef, ChangeEvent, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-interface MarqueeManagementProps {
-  initialItems: MarqueeItem[];
-}
 
-export default function MarqueeManagement() {
+
+export default function BannerManagement() {
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-      
-        const response = await fetch(API_URL + "/api/home/getMarqee");
-        const result = await response.json();
 
-        if (result.ok) {
-          // 💡 關鍵：result.data 才是你要的陣列
-          
-          setItems(result.data);
-        }
-      } catch (error) {
-        console.error("抓取資料失敗:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
 
-  const [items, setItems] = useState<MarqueeItem[]>([]); // 初始值為空陣列
+  const [items, setItems] = useState<ImgItem[]>([]); // 初始值為空陣列
   const [isLoading, setIsLoading] = useState(true); // 建議增加載入狀態
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<MarqueeItem | null>(null);
+  const [editingItem, setEditingItem] = useState<ImgItem | null>(null);
 
 
   // Form State
@@ -40,6 +19,27 @@ export default function MarqueeManagement() {
   const [image, setImage] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [homeData, setHomeData] = useState({ banner: [], bottomPics: [] });
+  // --- 2. 衍生資料 (Derived State) ---
+  // 直接從 homeData 拿資料，不需要再寫 .filter，因為後端已經分好類了！
+  const fixedBanners = Array.from({ length: 2 }, (_, i) => homeData.banner[i] || null);
+  const fixedBottoms = Array.from({ length: 4 }, (_, i) => homeData.bottomPics[i] || null);;
+  useEffect(() => {
+    setIsLoading(true); // 開始抓取時確保是 true
+    fetch(`${API_URL}/api/home/getHomeImgManagment?t=${Date.now()}`)
+      .then(res => res.json())
+      .then(result => {
+        if (result.ok) {
+          setHomeData(result.data);
+        }
+      })
+      .catch(err => console.error("Error:", err))
+      .finally(() => {
+        setIsLoading(false); // 無論成功或失敗，結束載入
+      });
+  }, []);
+
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -69,11 +69,11 @@ export default function MarqueeManagement() {
 
     try {
 
-       const url = editingItem
-        ? API_URL+"/api/home/updateMarquee"
-        : API_URL+"/api/home/createMarquee";
+     const url = editingItem
+        ? API_URL+"/api/poster/updateMarquee"
+        : API_URL+"/api/poster/createMarquee";
 
-     
+
       const response = await fetch(url, {
         method: 'POST',
         body: formData,
@@ -83,10 +83,10 @@ export default function MarqueeManagement() {
         throw new Error('Upload failed');
       }
 
-      const result = await response.json(); // 先拿到整包 JSON
-const savedItem = result.data;        //    這才是真正的物件內容
+      const savedItem: MarqueeItem = await response.json();
+
       if (editingItem) {
-      
+        // Update
         setItems(items.map(item =>
           item.id === editingItem.id ? savedItem : item
         ));
@@ -154,7 +154,7 @@ const savedItem = result.data;        //    這才是真正的物件內容
   return (
     <div className="w-full p-6 bg-gray-50 ">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">走馬燈管理</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Banner管理</h1>
         <button onClick={() => openModal()} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center gap-2 transition-all shadow-md">
           <Plus className="w-5 h-5" />
           新增
@@ -166,21 +166,31 @@ const savedItem = result.data;        //    這才是真正的物件內容
           <thead>
             <tr className="bg-gray-50 border-b border-gray-200">
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">縮圖</th>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">標題</th>
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600 text-right">操作</th>
             </tr>
           </thead>
           <tbody>
-            {items?.map((item) => (
-              <tr key={item.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+            {fixedBanners.map((item, index) => (
+              <tr key={item?.id || `empty-banner-${index}`} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
                 <td className="px-6 py-4">
-                  <img src={`${API_URL}${item.image}`} alt={item.title} className="w-12 h-12 rounded-lg object-cover border border-gray-200" referrerPolicy="no-referrer" />
+                  {item ? (
+                    <img src={`${API_URL}${item.image}`} alt={item.title} className="w-12 h-12 rounded-lg object-cover border border-gray-200" />
+                  ) : (
+                    <div className="w-12 h-12 rounded-lg bg-gray-50 border border-dashed border-gray-300 flex items-center justify-center text-gray-400 text-xs">空位</div>
+                  )}
                 </td>
-                <td className="px-6 py-4 font-medium text-gray-800">{item.title}</td>
+                <td className="px-6 py-4 font-medium text-gray-800">
+                  {item ? item.title : <span className="text-gray-400 italic">尚未設定 {index + 1}</span>}
+                </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-2">
-                    <button onClick={() => openModal(item)} className="px-4 py-1.5 text-sm border border-gray-200 rounded-md hover:bg-gray-50 transition-colors">編輯</button>
-                    <button onClick={() => handleDelete(item.id)} className="px-4 py-1.5 text-sm border border-red-100 text-red-500 rounded-md hover:bg-red-50 transition-colors">刪除</button>
+                    {item ? (
+                      <>
+                        <button onClick={() => openModal(item)} className="...">編輯</button>
+                        <button onClick={() => handleDelete(item.id)} className="...">刪除</button>
+                      </>
+                    ) : (
+                      <button onClick={() => openModal({ type: 'Marquee' })} className="text-blue-600 hover:underline text-sm">新增資料</button>
+                    )}
                   </div>
                 </td>
               </tr>
@@ -188,6 +198,52 @@ const savedItem = result.data;        //    這才是真正的物件內容
           </tbody>
         </table>
       </div>
+      <div className="flex items-center justify-between mb-6 mt-4">
+        <h1 className="text-2xl font-bold text-gray-800">底圖管理</h1>
+
+      </div>
+
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="bg-gray-50 border-b border-gray-200">
+              <th className="px-6 py-4 text-sm font-semibold text-gray-600">縮圖</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fixedBottoms.map((item, index) => (
+              <tr key={item?.id || `empty-banner-${index}`} className="...">
+                <td className="px-6 py-4">
+
+
+
+                  {item ? (
+                    <img src={`${API_URL}${item.image}`} alt={item?.title} className="w-12 h-12 rounded-lg object-cover border border-gray-200" referrerPolicy="no-referrer" />
+                  ) : (
+                    <div className="w-12 h-12 bg-gray-50 border border-dashed border-gray-300 rounded flex items-center justify-center text-gray-400">空位</div>
+                  )}
+                </td>
+                <td className="px-6 py-4">
+                  {/* 使用可選鏈 item?.title 解決報錯 */}
+                  {item ? item.title : <span className="text-gray-400">尚未設定 {index + 1}</span>}
+                </td>
+                <td className="px-6 py-4 text-right">
+                  {item ? (
+                    <div className="flex justify-end gap-2">
+                      <button onClick={() => openModal(item)}>編輯</button>
+                      <button onClick={() => handleDelete(item.id)}>刪除</button>
+                    </div>
+                  ) : (
+                    <button onClick={() => openModal({ type: 'ButtonImg' })} className="text-blue-600">新增</button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
@@ -240,17 +296,7 @@ const savedItem = result.data;        //    這才是真正的物件內容
                   />
                 </div>
 
-                {/* Title Input */}
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700">標題</label>
-                  <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="請輸入標題"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-                  />
-                </div>
+
 
 
               </div>

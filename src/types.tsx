@@ -7,7 +7,7 @@ export interface MarqueeItem {
   order: number;
 }
 
-export interface PosterItem {
+export interface ImgItem {
   id: string;
   image: string;
   description: string;
