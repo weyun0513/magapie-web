@@ -1,29 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import emailjs from "@emailjs/browser";
 import banner from '../assets/logobanner_w.png';
-import banner2 from '../assets/banner2.jpeg';
 
 import qrcode from "../assets/qr_wechat.png";
 
 const Home = () => {
-  // ... (保持你原有的狀態、函數和 marqueeItems 不變) ...
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const userId = import.meta.env.VITE_EMAILJS_Public_Key;
   const CONTACTMAIL = import.meta.env.VITE_CONTACT_EMAIL;
-
+  const [isLoading, setIsLoading] = useState(true); // 建議增加載入狀態
   const [status, setStatus] = useState("");
   const [selectedImg, setSelectedImg] = useState(null);
+  const [homeData, setHomeData] = useState({ banner: [], marquee: [], bottomPics: [] });
   const [showQR, setShowQR] = useState(false); // 修正：加上原有的 QR 狀態
+  useEffect(() => {
+    setIsLoading(true); //  
+    fetch(`${API_URL}/api/home`)
+      .then(res => res.json())
+      .then(result => {
+        if (result.ok) {
+          setHomeData(result.data);
 
-  const marqueeItems = [
-    {
-      text: "🎉 春假託管班 招生啦",
-      type: "image",
-      content: "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/poster2_in1hy8.jpg"
-    } 
-  ];
+        }
+      })
+      .catch(err => console.error("Error:", err))
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
 
   const openModal = (e, imgUrl) => {
     e.preventDefault();
@@ -84,12 +93,7 @@ const Home = () => {
       });
   };
 
-  const images = [
-    "https://res.cloudinary.com/dux3mbryw/image/upload/v1763021015/program2_zj75i6.jpg",
-    "https://res.cloudinary.com/dux3mbryw/image/upload/v1763021013/program4_lofjsd.jpg",
-    "https://res.cloudinary.com/dux3mbryw/image/upload/v1763021812/program1_eupzcz.jpg",
-    "https://res.cloudinary.com/dux3mbryw/image/upload/v1763022058/program1_oryzkz.jpg"
-  ];
+
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -100,18 +104,18 @@ const Home = () => {
         <div className="absolute whitespace-nowrap flex animate-marquee">
           {[1, 2].map((loop) => (
             <div key={loop} className="flex items-center">
-              {marqueeItems.map((item, index) => (
+              {homeData?.marquee?.map((item, index) => (
                 <React.Fragment key={index}>
                   <a
-                    href={item.type === "link" ? item.content : "#"}
+                    href={item.type === "link" ? item.image : "#"}
                     target={item.type === "link" ? "_blank" : "_self"}
                     rel="noopener noreferrer"
                     onClick={(e) => {
-                      if (item.type === "image") openModal(e, item.content);
+                      openModal(e, `${API_URL}${item.image}`);
                     }}
                     className="mx-8 hover:underline font-medium flex items-center gap-2 cursor-pointer"
                   >
-                    {item.text}
+                    {item.title}
                   </a>
                   <span className="mx-8 text-blue-200">|</span>
                 </React.Fragment>
@@ -123,61 +127,54 @@ const Home = () => {
 
       {/* --- 1. Hero Banner: 調整為圖片中的大標題效果 --- */}
       {/* 第一個區塊：將 py-20 改為 pt-20 (只保留上邊距) */}
-      <div className="bg-blue-100 pt-10 pb-10 px-4 md:px-8">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
-          <div className="text-center md:text-left md:w-1/2 space-y-5">
-            {/* 第一段：主標題 - 展現氣勢 */}
-            <h1 className="text-3xl md:text-5xl font-black text-gray-900 leading-[1.1] tracking-tight">
-              Magpie Learning Centre <br />
-              <span className="text-blue-600">Takes Flight</span>
-            </h1>
+       <div className="bg-blue-100 pt-10 pb-20 px-4 md:px-8">
+  <div className="max-w-7xl mx-auto">
+    {/* 標題區塊：置中對齊 */}
+    <div className="text-center mb-12 space-y-4">
+      <h1 className="text-3xl md:text-6xl font-black text-gray-900 leading-tight tracking-tight">
+        Magpie Learning Centre <span className="text-blue-600 italic">Takes Flight</span>
+      </h1>
+      <div className="flex items-center justify-center gap-3">
+        <div className="w-12 h-[2px] bg-blue-400"></div>
+        <p className="text-lg md:text-xl text-gray-500 font-medium tracking-wide uppercase italic">
+          Richmond's Premiere After School Enrichment Destination
+        </p>
+        <div className="w-12 h-[2px] bg-blue-400"></div>
+      </div>
+    </div>
 
-            {/* 第二段：副標題 - 增加品牌權威感 */}
-            <div className="flex items-center gap-3 justify-center md:justify-start">
-              {/* 增加一個裝飾用的小橫線，讓設計感提升 */}
-              <div className="hidden md:block w-8 h-[2px] bg-blue-400"></div>
-              <p className="text-lg md:text-xl text-gray-500 font-medium tracking-wide uppercase italic">
-                Richmond's Premiere After School Enrichment Destination
-              </p>
-            </div>
-          </div>
-          <div className="md:w-1/2 flex justify-center md:justify-end">
-            <img
-              src={banner}
-              className="w-full max-w-xl shadow-2xl rounded-xl shadow-xl  "
-              alt="Hero"
-            />
-          </div>
+    {/* 圖片並排區塊 */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      {/* 左側圖：本地 Banner */}
+      <div className="group relative">
+        <img
+          src={`${API_URL}${homeData.banner[0]?.image}`}
+          className="w-full h-auto shadow-2xl rounded-2xl transform transition-transform duration-300 group-hover:scale-[1.02]"
+          alt="Magpie Learning Centre Banner 1"
+        />
+        {/* 可選：增加淡淡的裝飾字體 */}
+        <div className="absolute bottom-4 left-4 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-lg text-sm font-bold text-blue-600 shadow-sm">
+          Creative Discovery
         </div>
       </div>
 
-      {/* 第二個區塊：移除 py 並改用 pb-20 (只保留下邊距)，這樣它就會「吸」上去 */}
-      <div className="bg-blue-100 pb-20 px-4 md:px-8">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div className="text-center md:text-left md:w-1/2">
-            <h1 className="text-2xl md:text-4xl font-extrabold text-gray-800 leading-tight">
-              Welcome to Magpie Learning Centre
-            </h1>
-            <div className="flex items-center gap-3 pt-10 justify-center md:justify-start">
-              {/* 增加一個裝飾用的小橫線，讓設計感提升 */}
-              <div className="hidden md:block w-8 h-[2px] bg-blue-400"></div>
-              <p className="text-lg md:text-xl text-gray-500 font-medium tracking-wide uppercase italic">
-                Empowering young minds through personalized mentorship and creative discovery.
-              </p>
-            </div>
-          </div>
-          <div className="md:w-1/2 flex justify-center md:justify-end">
-            <img
-              src={banner2}
-              className="w-full max-w-xl shadow-2xl rounded-xl shadow-xl  "
-              alt="Hero"
-               onClick={(e) => {
-                     openModal(e, "https://res.cloudinary.com/dux3mbryw/image/upload/v1770714104/poster2_in1hy8.jpg");
-                    }}
-            />
-          </div>
+      {/* 右側圖：API 獲取的動態 Banner */}
+      <div className="group relative">
+        <img
+          src={`${API_URL}${homeData.banner[1]?.image}`}
+          className="w-full h-auto shadow-2xl rounded-2xl cursor-pointer transform transition-transform duration-300 group-hover:scale-[1.02]"
+          alt="Magpie Learning Centre Banner 2"
+          onClick={(e) => {
+            openModal(e, `${API_URL}${homeData.banner[1]?.image}`);
+          }}
+        />
+        <div className="absolute bottom-4 right-4 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-lg text-sm font-bold text-blue-600 shadow-sm">
+          Personalized Mentorship
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
       {/* --- 2. Main Content: 核心內容區塊優化 --- */}
       {/* 使用 max-w-7xl mx-auto 讓內容居中並限制寬度 */}
@@ -314,12 +311,54 @@ const Home = () => {
         </div>
 
         {/* 下方四張圖片區塊 */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
-          {images.map((src, index) => (
-            <img key={index} src={src} alt={`program-${index}`} className="w-full h-48 object-cover rounded-xl shadow-md hover:scale-105 transition-transform cursor-pointer" onClick={() => setSelectedImg(src)} />
-          ))}
+        <div className="mt-16 overflow-hidden relative">
+          {/* 漸變遮罩：讓左右兩邊有淡出效果，更有質感 */}
+          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+
+          {/* 跑馬燈容器 */}
+          <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
+            {/* 第一組圖片 */}
+            <div className="flex gap-4 px-2">
+              {homeData?.bottomPics?.map((item) => (
+                <img
+                  key={`group1-${item.id}`}
+                  src={`${API_URL}${item.image}`}
+                  className="w-64 h-48 object-cover rounded-xl shadow-md hover:scale-105 transition-transform cursor-pointer"
+                  onClick={() => setSelectedImg(`${API_URL}${item.image}`)}
+                />
+              ))}
+            </div>
+
+            <div className="flex gap-4 px-2">
+              {homeData?.bottomPics?.map((item) => (
+                <img
+                  key={`group2-${item.id}`}
+                  src={`${API_URL}${item.image}`}
+                  className="w-64 h-48 object-cover rounded-xl shadow-md hover:scale-105 transition-transform cursor-pointer"
+                  onClick={() => setSelectedImg(`${API_URL}${item.image}`)}
+                />
+              ))}
+            </div>
+
+          </div>
+
         </div>
+
       </div>
+
+      <footer className="py-8 bg-gray-50 text-center text-gray-400 text-sm">
+        <p>
+          © {new Date().getFullYear()} Magpie Learning Centre. All rights reserved
+          {/* 點擊這個點才會進入登入頁 */}
+          <span
+            onClick={() => window.location.href = '#/adminPage'}
+            className="cursor-default hover:text-gray-500 transition-colors"
+          >
+            管理員
+          </span>
+        </p>
+      </footer>
 
       {/* --- QR Code 彈窗 (複製你的原始邏輯) --- */}
       {showQR && (

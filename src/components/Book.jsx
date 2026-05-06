@@ -24,10 +24,8 @@ const Book = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
-    console.log("Form submitted:", templateId);
     e.preventDefault();
     alert("Thank you! Your message has been sent.");
-    console.log("Form submitted:", formData);
     debugger
     setFormData({
       firstName: "",
@@ -48,7 +46,6 @@ const Book = () => {
     emailjs
       .send(serviceId, templateId, templateParams, userId)
       .then((response) => {
-        console.log("Thank you! Your message has been sent.", response.status, response.text);
         // alert("已成功發送,會盡快聯繫您")
         setStatus("留言已發送！");
 

@@ -34,22 +34,10 @@ const NavBar = () => {
             <li><Link to="/programs" className="hover:text-blue-600 transition-colors">Programs</Link></li>
 
             {/* Activity 下拉選單 */}
-            <li className="relative group">
-              <button className="hover:text-blue-600 transition-colors flex items-center gap-1">
-                Activity
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                </svg>
-              </button>
-              <div className="absolute left-0 mt-2 w-48 bg-white shadow-xl rounded-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all z-50">
-                <ul className="py-2">
-                  <li><Link to="/activity/UpcomingActivities" className="block px-4 py-2 hover:bg-gray-100">Upcoming Activity</Link></li>
-                  <li><Link to="/activity/PastActivities" className="block px-4 py-2 hover:bg-gray-100">Past Activities</Link></li>
-                </ul>
-              </div>
-            </li>
              
-            {/* <li><Link to="/photoGallery" className="hover:text-blue-600 transition-colors">PhotoGallery</Link></li> */}
+            <li><Link to="/ActivityGallery" className="hover:text-blue-600 transition-colors">ActivityGallery</Link></li>
+             
+            <li><Link to="/PhotoGallery" className="hover:text-blue-600 transition-colors">PhotoGallery</Link></li>
 
             {/* Book 按鈕 */}
             <li>
@@ -76,43 +64,8 @@ const NavBar = () => {
             <ul className="py-2 text-gray-700 font-medium">
               <li><Link to="/" className="block px-4 py-2 hover:bg-gray-100">Home</Link></li>
               <li><Link to="/programs" className="block px-4 py-2 hover:bg-gray-100">Programs</Link></li>
-              <li>
-                <button
-                  onClick={() => setIsActivityOpen(!isActivityOpen)}
-                  className="w-full text-left px-4 py-2 hover:bg-gray-100 flex justify-between items-center"
-                >
-                  Activity
-                  <svg
-                    className={`w-4 h-4 transition-transform ${isActivityOpen ? "rotate-180" : ""}`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    />
-                  </svg>
-                </button>
-
-                {isActivityOpen && (
-                  <ul className="pl-6">
-                    <li><Link to="/activity" className="block px-4 py-2 hover:bg-gray-100 text-sm" onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      setIsActivityOpen(false);
-                    }}>Upcoming Activity</Link></li>
-                    <li><Link to="/activity/PastActivities" onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      setIsActivityOpen(false);
-                    }} className="block px-4 py-2 hover:bg-gray-100 text-sm">Past Activities</Link></li>
-                  </ul>
-                )}
-              </li>
-              {/* <li><a href="/grade-levels" className="block px-4 py-2 hover:bg-gray-100">Grade Levels</a></li> */}
-              {/* <li><a href="/faqs" className="block px-4 py-2 hover:bg-gray-100">FAQs</a></li> */}
-              {/* <li><a href="/franchise" className="block px-4 py-2 hover:bg-gray-100">Franchise</a></li> */}
-              {/* <li><a href="/bookstore" className="block px-4 py-2 hover:bg-gray-100">Bookstore</a></li> */}
-              {/* <li><a href="/blog" className="block px-4 py-2 hover:bg-gray-100">Blog</a></li> */}
-              {/* <li><a to="/locations" className="block px-4 py-2 hover:bg-gray-100 font-semibold text-blue-600">LOCATIONS</a></li> */}
+                <li><Link to="/ActivityGallery" className="block px-4 py-2 hover:bg-gray-100">ActivityGallery</Link></li>
+              <li><Link to="/PhotoGallery" className="block px-4 py-2 hover:bg-gray-100">PhotoGallery</Link></li>
               <li>
                 <Link to="/book" className="block mx-4 mt-2 bg-blue-500 text-white py-2 text-center rounded-full flex items-center justify-center gap-1">
                   BOOK
